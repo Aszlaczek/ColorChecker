@@ -1,0 +1,81 @@
+table {
+  width: 100%;
+  padding: 0 0.5rem;
+  thead {
+    font-size: clamp(1rem, 8svw - 1rem, 1.5rem);
+    tr {
+      th {
+        gap: 0.2rem;
+        border-radius: 5px;
+      }
+      button {
+        text-align: center;
+        width: 100%;
+        background: transparent;
+        border: none;
+        font-size: inherit;
+        place-self: center;
+        position: relative;
+        font-weight: 700;
+        &::after {
+          position: absolute;
+          transition: all 0.2s;
+          content: "";
+          width: 0;
+          height: 2px;
+          background-color: white;
+          border-radius: 10px;
+          bottom: 0;
+          left: 0;
+        }
+        &:hover {
+          &::after {
+            width: 100%;
+          }
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  tbody {
+    text-align: center;
+    font-size: inherit;
+    font-weight: 700;
+    height: 100%;
+    font-size: 1.8rem;
+    td {
+      button {
+        background: transparent;
+        transition: all 0.2s;
+        border: none;
+        color: white;
+        font-size: inherit;
+        &:hover {
+          cursor: pointer;
+          color: red;
+        }
+      }
+      &:nth-child(2) {
+        color: red;
+      }
+      &:nth-child(3) {
+        color: green;
+      }
+      &:nth-child(4) {
+        color: blue;
+      }
+    }
+  }
+}
+.show_filter {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  font-size: clamp(0.5rem, 5svw - 1rem, 1rem);
+  color: white;
+  p {
+    &:first-child {
+      font-size: clamp(1rem, 8svw - 1rem, 1.5rem);
+    }
+  }
+}

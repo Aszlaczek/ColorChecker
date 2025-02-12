@@ -1,0 +1,308 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+$time: 1.2s;
+$drop-time: 1s;
+
+@keyframes expand {
+  0% {
+    border-radius: 50%;
+    width: 0%;
+    height: 0%;
+  }
+  100% {
+    border-radius: 00%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes drop {
+  0% {
+    scale: 0.5;
+    translate: 0% -100%;
+    filter: blur(5px);
+    border-radius: 50%;
+  }
+
+  50% {
+    scale: 0.2;
+    translate: 0% 0%;
+  }
+
+  75% {
+    border-radius: 50%;
+    translate: 0 10%;
+  }
+  100% {
+    width: 100svw;
+    height: 100svh;
+    border-radius: 0;
+    translate: 0 0;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.App {
+  font-family: "Courier New", Courier, monospace;
+  min-width: 100svw;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  place-items: center;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 25svw;
+    z-index: -100;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    top: 0;
+    display: grid;
+    background-image: radial-gradient(rgba(255, 255, 255, 1), rgba(0, 0, 0, 1));
+    animation: $drop-time drop cubic-bezier(0.2555, 0.03, 0.515, 0.955) forwards;
+  }
+  .main,
+  .displayInfo {
+    animation: $time $time show forwards;
+    opacity: 0;
+  }
+  .main > * {
+    animation: $time $time/10 show forwards;
+    opacity: 0;
+  }
+}
+
+.displayInfo {
+  padding: 0.5rem;
+  display: grid;
+  text-align: center;
+  gap: 0.5rem;
+  width: 100%;
+  h1 {
+    padding-top: 0.5rem;
+  }
+  & > button {
+    transition: all 0.5s;
+    background-color: transparent;
+    border: none;
+    place-self: center;
+    padding: 0.5rem;
+    aspect-ratio: 5/1;
+    font-size: clamp(1.5rem, 10svw - 1rem, 2.5rem);
+    position: relative;
+    font-family: inherit;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    &:hover {
+      cursor: pointer;
+      color: black;
+      text-shadow: 1px 1px 1px white;
+      &::after {
+        width: 100%;
+      }
+    }
+    &::after {
+      content: "";
+      transition: width 0.2s ease-in-out;
+      border-radius: inherit;
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: 0;
+      background-color: black;
+      filter: blur(2px);
+      z-index: -1;
+    }
+  }
+}
+
+h1 {
+  color: white;
+  text-shadow: 0px 0px 10px yellow;
+  font-size: clamp(2.5rem, 10svw - 1rem, 3.5rem);
+  text-align: center;
+  transition: all 0.2s;
+}
+
+form {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(1.5em, 8svw - 1rem, 2rem);
+  gap: 0.2rem;
+  .container_rgb,
+  .container_hex {
+    display: grid;
+    width: 100%;
+    place-items: center;
+    label {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 0.2rem 0;
+      p {
+        transition: all 0.2s;
+        font-size: clamp(1.5rem, 8svw - 2rem, 3rem);
+      }
+      input::placeholder {
+        color: rgba(4, 0, 0, 0.426);
+      }
+
+      &::after {
+        content: "";
+        transition: all 0.5s;
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        background-color: black;
+        bottom: 0;
+        left: 25%;
+      }
+      &:has(> input:focus) {
+        p {
+          color: white;
+          text-shadow: 0 0 2px black;
+        }
+
+        &::after {
+          width: 50%;
+        }
+      }
+      input {
+        width: 50%;
+        background-color: transparent;
+        font-size: clamp(1rem, 10svw - 1rem, 2rem);
+        padding: 0.2rem 0.5rem;
+        border: none;
+        text-align: center;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  .container_hex:has(> label > input:focus) {
+    h1 {
+      color: black;
+    }
+  }
+  .container_rgb:has(> label > input:focus) {
+    h1 {
+      color: black;
+    }
+  }
+  button {
+    width: clamp(25%, 100%, 50%);
+    transition: all 0.2s;
+    padding: 0 0.5rem;
+    margin-top: 0.5rem;
+    height: 2rem;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    position: relative;
+    font-size: inherit;
+    &:hover {
+      cursor: pointer;
+      color: white;
+      text-shadow: 0 0 2px black;
+      &::after {
+        width: 100%;
+      }
+    }
+    &::after {
+      content: "";
+      transition: all 0.5s;
+      border-radius: inherit;
+      position: absolute;
+      width: 0%;
+      height: 10%;
+      border-radius: inherit;
+      left: 0%;
+      bottom: -10%;
+      z-index: -1;
+      background: white;
+    }
+  }
+  #color_rgb {
+    position: absolute;
+    left: 1%;
+    top: 15%;
+    background-color: transparent;
+    border: none;
+    width: 25%;
+    height: 10%;
+  }
+}
+
+.popup {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.582);
+  padding: 2rem 0.5rem;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  gap: 0.8rem;
+  animation: $time show;
+  h4,
+  span {
+    font-size: clamp(1rem, 8svw - 1rem, 1.5rem);
+    color: rgba(255, 255, 255, 0.848);
+    text-shadow: 0 0 2px black;
+  }
+  div {
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    row-gap: 0.5rem;
+  }
+  h1 {
+    font-size: clamp(1rem, 8svw - 1rem, 2rem);
+  }
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  overflow: auto;
+}
+
+@media (width < 500px) {
+  form {
+    gap: 1rem;
+    .container_hex,
+    .container_rgb {
+      label {
+        gap: 1rem;
+      }
+    }
+    #color_rgb {
+      left: 50%;
+      translate: -50% 30%;
+      height: 5%;
+    }
+  }
+}

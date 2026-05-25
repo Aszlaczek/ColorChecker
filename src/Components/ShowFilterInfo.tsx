@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Conditions } from "./TableColors";
 
 const ShowFilterInfo = (props: { filters: Conditions }) => {

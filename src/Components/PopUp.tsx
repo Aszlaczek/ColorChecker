@@ -1,22 +1,23 @@
 import React from "react";
 import { Color } from "../App";
 
-type Pop = {
+type PopProps = {
   color: Color;
 };
 
-export default class Popup extends React.Component<Pop> {
+export default class Popup extends React.Component<PopProps> {
   render() {
+    const { color } = this.props;
     return (
       <div className="popup">
-        <h1>You have successful added new color</h1>
-        <div>
-          <h4>HEX</h4>
-          <span>Color HEX: {this.props.color.hex}</span>
-          <h4>RGB values</h4>
-          <span>{`r: ${this.props.color.rgb.r} g: ${this.props.color.rgb.g} b: ${this.props.color.rgb.b}`}</span>
-          <h4>Saturation:</h4>
-          <span>{this.props.color.hsl.s}%</span>
+        <h1>Color Added</h1>
+        <span>Successfully added to your collection</span>
+        <div className="toast-color-badge">
+          <span
+            className="badge-dot"
+            style={{ backgroundColor: color.hex }}
+          ></span>
+          <span>{color.hex}</span>
         </div>
       </div>
     );

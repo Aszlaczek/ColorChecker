@@ -32,30 +32,33 @@ export default function TableColors(props: {
     });
   };
 
-  const applyFilters = useCallback((filterState: Conditions, sourceList?: Color[]): void => {
-    let newFilterList = [...props.list];
+  const applyFilters = useCallback(
+    (filterState: Conditions, sourceList?: Color[]): void => {
+      let newFilterList = [...props.list];
 
-    if (sourceList !== undefined && sourceList !== null) {
-      newFilterList = sourceList;
-    }
+      if (sourceList !== undefined && sourceList !== null) {
+        newFilterList = sourceList;
+      }
 
-    if (filterState.red) {
-      newFilterList = newFilterList.filter((e) => Number(e.rgb.r) > 127);
-    }
+      if (filterState.red) {
+        newFilterList = newFilterList.filter((e) => Number(e.rgb.r) > 127);
+      }
 
-    if (filterState.green) {
-      newFilterList = newFilterList.filter((e) => Number(e.rgb.g) > 127);
-    }
+      if (filterState.green) {
+        newFilterList = newFilterList.filter((e) => Number(e.rgb.g) > 127);
+      }
 
-    if (filterState.blue) {
-      newFilterList = newFilterList.filter((e) => Number(e.rgb.b) > 127);
-    }
+      if (filterState.blue) {
+        newFilterList = newFilterList.filter((e) => Number(e.rgb.b) > 127);
+      }
 
-    if (filterState.saturation) {
-      newFilterList = newFilterList.filter((e) => Number(e.hsl.s) > 50);
-    }
-    setList(newFilterList);
-  }, [props.list]);
+      if (filterState.saturation) {
+        newFilterList = newFilterList.filter((e) => Number(e.hsl.s) > 50);
+      }
+      setList(newFilterList);
+    },
+    [props.list],
+  );
 
   const handleDelete = (item: string): void => {
     let newList = props.list.filter((e) => item !== e.hex);
@@ -146,7 +149,10 @@ export default function TableColors(props: {
         <div className="empty-state">
           <div className="empty-icon">🎨</div>
           <h3>No Colors Found</h3>
-          <p>Try clearing active filters or add a new custom color to your palette.</p>
+          <p>
+            Try clearing active filters or add a new custom color to your
+            palette.
+          </p>
         </div>
       ) : viewMode === "grid" ? (
         <div className="color-grid">
@@ -167,7 +173,10 @@ export default function TableColors(props: {
                 <div className="copy-overlay">CLICK TO COPY</div>
               </div>
               <div className="card-body">
-                <h4 className="hex-title" onClick={() => copyToClipboard(e.hex)}>
+                <h4
+                  className="hex-title"
+                  onClick={() => copyToClipboard(e.hex)}
+                >
                   {e.hex}
                 </h4>
                 <div className="channels-grid">
@@ -186,7 +195,9 @@ export default function TableColors(props: {
                 </div>
                 <div className="card-footer">
                   <span>HSL: {Math.round(Number(e.hsl.h))}°</span>
-                  <span className="sat-value">Sat: {Math.round(Number(e.hsl.s))}%</span>
+                  <span className="sat-value">
+                    Sat: {Math.round(Number(e.hsl.s))}%
+                  </span>
                 </div>
               </div>
             </div>
@@ -221,13 +232,22 @@ export default function TableColors(props: {
                         <span>{e.hex}</span>
                       </div>
                     </td>
-                    <td className="channel-cell" style={{ color: "var(--danger)" }}>
+                    <td
+                      className="channel-cell"
+                      style={{ color: "var(--danger)" }}
+                    >
                       {e.rgb.r}
                     </td>
-                    <td className="channel-cell" style={{ color: "var(--success)" }}>
+                    <td
+                      className="channel-cell"
+                      style={{ color: "var(--success)" }}
+                    >
                       {e.rgb.g}
                     </td>
-                    <td className="channel-cell" style={{ color: "var(--primary)" }}>
+                    <td
+                      className="channel-cell"
+                      style={{ color: "var(--primary)" }}
+                    >
                       {e.rgb.b}
                     </td>
                     <td className="channel-cell" style={{ color: "#f59e0b" }}>

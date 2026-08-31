@@ -26,11 +26,11 @@ Color Manager to narzędzie dla każdego, kto pracuje z kolorami (projektanci, d
 
 **Widok Grid** — filtrowanie po kanałach R/G/B oraz nasyceniu, panel każdego koloru z wartościami HEX, RGB, HSL i Saturation:
 
-![Widok Grid](./screenshots/grid-view.png)
+![Widok Grid](./src/screenshots/grid-view.png)
 
 **Widok List** — te same dane w formie tabeli, z akcją usuwania koloru:
 
-![Widok List](./screenshots/list-view.png)
+![Widok List](./src/screenshots/list-view.png)
 
 ## Stack technologiczny
 

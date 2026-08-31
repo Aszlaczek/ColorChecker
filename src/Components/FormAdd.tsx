@@ -71,7 +71,7 @@ export function FormAdd(props: {
       }
     }
     const hslResult = {
-      h: (h * 360).toFixed(2),
+      h: (h * 60).toFixed(2),
       s: (s * 100).toFixed(2),
       l: (l * 100).toFixed(2),
     };
@@ -80,8 +80,10 @@ export function FormAdd(props: {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let listOfColors: Color[] = JSON.parse(localStorage.getItem("colors") || "[]");
-    
+    let listOfColors: Color[] = JSON.parse(
+      localStorage.getItem("colors") || "[]",
+    );
+
     // Normalize hex format (must start with #)
     let finalHex = data.hex.toUpperCase();
     if (!finalHex.startsWith("#")) {
@@ -89,13 +91,13 @@ export function FormAdd(props: {
     }
     const normalizedData = {
       ...data,
-      hex: finalHex
+      hex: finalHex,
     };
 
     props.setColor(normalizedData);
     listOfColors.push(normalizedData);
     localStorage.setItem("colors", JSON.stringify(listOfColors));
-    
+
     setData({
       rgb: { r: "", g: "", b: "" },
       hex: "",
@@ -127,11 +129,14 @@ export function FormAdd(props: {
     setData((prev) => {
       const newData = { ...prev.rgb, [name]: value };
       const newHex =
-        "#" + convert(newData.r || "0") + convert(newData.g || "0") + convert(newData.b || "0");
+        "#" +
+        convert(newData.r || "0") +
+        convert(newData.g || "0") +
+        convert(newData.b || "0");
       const newHsl = calcHsl(
         Number(newData.r || 0),
         Number(newData.g || 0),
-        Number(newData.b || 0)
+        Number(newData.b || 0),
       );
       return {
         ...prev,
@@ -154,7 +159,9 @@ export function FormAdd(props: {
     <form onSubmit={handleSubmit}>
       <div className="form-header">
         <h2>Add a New Color</h2>
-        <p>Define custom values or pick a color visually using the palette widget</p>
+        <p>
+          Define custom values or pick a color visually using the palette widget
+        </p>
       </div>
 
       <div className="form-grid">
@@ -229,13 +236,20 @@ export function FormAdd(props: {
         </div>
 
         <div className="color-picker-widget">
-          <div 
-            className="picker-preview-circle" 
+          <div
+            className="picker-preview-circle"
             style={{ backgroundColor: data.hex || "#000000" }}
           ></div>
           <div className="picker-label">
             {data.hex ? `${data.hex}` : "Visual Palette"}
-            <span style={{ display: "block", fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
+            <span
+              style={{
+                display: "block",
+                fontSize: "0.75rem",
+                color: "var(--text-muted)",
+                marginTop: "0.25rem",
+              }}
+            >
               Click circle to pick
             </span>
           </div>
@@ -250,8 +264,11 @@ export function FormAdd(props: {
       </div>
 
       <button type="submit">
-        <svg style={{ width: "18px", height: "18px", fill: "currentColor" }} viewBox="0 0 24 24">
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        <svg
+          style={{ width: "18px", height: "18px", fill: "currentColor" }}
+          viewBox="0 0 24 24"
+        >
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
         </svg>
         Save Color
       </button>
